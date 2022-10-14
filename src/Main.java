@@ -8,16 +8,17 @@ public class Main {
         employees[3] = new Employee("Александр Данилович Соловьёв", 5, 60757);
         Employee kalyvanNagoryev = new Employee("Калыван Олегович Нагорьев", 4, 46520);
         addEmployee(kalyvanNagoryev);
-
         printEmployees(5); // Часть 1 и 2
-        getMax(5);
-        getMin(5);
+        getMax(2);
+        getMin(2);
         System.out.println("Сумма зарплат по отделу составляет " + calculationSalarySum(5));
         calculationAverageSalary(5);
         getIncreaseSalary(4, 5);
 
         getNumber(46520); // Часть 3
+
     }
+
 
     public static void addEmployee(Employee employee) {
         boolean storageSpace = false;
@@ -45,38 +46,42 @@ public class Main {
     public static int calculationSalarySum(int department) {
         int sum = 0;
         for (int i = 0; i < employees.length && employees[i] != null; i++) {
-            if (employees[i].getDepartment() == department)
-                sum = sum + employees[i].getSalary();
+            Employee employee = employees[i];
+            if (employee.getDepartment() == department)
+                sum += employees[i].getSalary();
         }
         return sum;
     }
 
     public static void getMax(int department) {
-        String name = employees[0].getName();
+        String name = "";
         int maxValue = Integer.MIN_VALUE;
         for (int i = 0; i < employees.length && employees[i] != null; i++) {
-            if (employees[i].getDepartment() == department) {
-                if (employees[i].getSalary() > maxValue) {
+            if (employees[i].getSalary() > maxValue && employees[i].getDepartment() == department) {
                     maxValue = employees[i].getSalary();
                     name = employees[i].getName();
                 }
-            }
+        } if (name.equals("")) {
+            System.out.println("В отделе нет сотрудников");
+        } else {
+            System.out.println("Сотрудником с максимальной зарплатой по отделу является " + name + ", его зарплата составляет " + maxValue + " рублей");
         }
-        System.out.println("Сотрудником с максимальной зарплатой по отделу является " + name + ", его зарплата составляет " + maxValue + " рублей");
     }
 
+
     public static void getMin(int department) {
-        String name = employees[0].getName();
+        String name = "";
         int minValue = Integer.MAX_VALUE;
         for (int i = 0; i < employees.length && employees[i] != null; i++) {
-            if (employees[i].getDepartment() == department) {
-                if (employees[i].getSalary() < minValue) {
+            if (employees[i].getDepartment() == department && employees[i].getSalary() < minValue) {
                     minValue = employees[i].getSalary();
                     name = employees[i].getName();
                 }
-            }
+        }if (name.equals("")) {
+            System.out.println("В отделе нет сотрудников");
+        } else {
+            System.out.println("Сотрудником с минимальной зарплатой по отделу является " + name + ", его зарплата составляет " + minValue + " рублей");
         }
-        System.out.println("Сотрудником с минимальной зарплатой по отделу является " + name + ", его зарплата составляет " + minValue + " рублей");
     }
 
     public static void calculationAverageSalary(int department) {
@@ -85,8 +90,11 @@ public class Main {
             if (employees[i].getDepartment() == department) {
                 employeeInDepartment++;
             }
+        }if (employeeInDepartment == 0) {
+            System.out.println("В отделе нет сотрудников");
+        } else {
+            System.out.println("Средняя зарплата по отделу составляет " + calculationSalarySum(5) / employeeInDepartment);
         }
-        System.out.println("Средняя зарплата по отделу составляет " + calculationSalarySum(5) / employeeInDepartment);
     }
 
     public static void getIncreaseSalary(int increment, int department) {
@@ -110,3 +118,4 @@ public class Main {
         }
     }
 }
+
